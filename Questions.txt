@@ -1,0 +1,2 @@
+Ex2: Something third exercise
+Ex5: Last checkpoint, do que need to understand how each of the algorithms work or is just a matter of commenting about what is the best one?
