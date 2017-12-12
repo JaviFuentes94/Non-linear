@@ -7,7 +7,7 @@
 
   
   clear 
-  close all
+  %close all
   randn('seed',0) 
 
   Ni = 1;                   % Number of external inputs
@@ -41,42 +41,52 @@
     figh1=0;
   end
   
-  
-  % First, get some data...
-  N1 = 100;
-  N2 = 12;
-  X_tr = [ randn(N1, 1) - 2 ; randn(N2, 1) + 2];
-  y_tr = [ ones(N1, 1) ; 1+ones(N2, 1) ];
-  
-  meanX = mean(X_tr, 1);
-  stdX  = std(X_tr, 1);
-  train_inp = X_tr; %
-  train_tar = y_tr;
-  
-  clear Etrain Etest Error_train Error_test
+  error=[];
+  nIt=1:20;
+  for i=nIt
+      % First, get some data...
+      N1 = 25*i;
+      N2 = 3*i;
+      X_tr = [ randn(N1, 1) - 2 ; randn(N2, 1) + 2];
+      y_tr = [ ones(N1, 1) ; 1+ones(N2, 1) ];
 
+      meanX = mean(X_tr, 1);
+      stdX  = std(X_tr, 1);
+      train_inp = X_tr; %
+      train_tar = y_tr;
+
+      clear Etrain Etest Error_train Error_test
+
+
+      % Initialize network weights
+      [Wi,Wo] = nc_winit(Ni,Nh,No,range,seed);
+
+      % Perform initial training of the net
+      [Wi,Wo] = nc_train(Wi,Wo,alpha_i,alpha_o,train_inp, train_tar, ...
+          I_gr, I_psgn,greps,figh1);
+
+      dim = nc_dimen(Wi,Wo);
+      iter = 1;
+      dimvec(iter) = dim;
+      Etrain(iter) = nc_cost_c(Wi,Wo,alpha_i,alpha_o,train_inp,train_tar);
+      Error_train(iter) = nc_err_frac(Wi,Wo,train_inp,train_tar);
+
+
+
+      % Construct grid
+      grid_inp = (-5:0.1:5)';
+      [Vj, grid_outy] = nc_forward(Wi, Wo, grid_inp);
+      grid_out = nc_softmax(grid_outy);
+
+      
+       true_out1=1./(1 + (N2/N1)*exp(-0.5*(grid_inp-2).^2 + 0.5*(grid_inp+2).^2));
+  true_out2=ones(size(true_out1))-true_out1;
+      %Calculate probabilities error
+      error=[error; norm(grid_out-[true_out1, true_out2])];
+  end
+   
   
-  % Initialize network weights
-  [Wi,Wo] = nc_winit(Ni,Nh,No,range,seed);
-
-  % Perform initial training of the net
-  [Wi,Wo] = nc_train(Wi,Wo,alpha_i,alpha_o,train_inp, train_tar, ...
-      I_gr, I_psgn,greps,figh1);
-  
-  dim = nc_dimen(Wi,Wo);
-  iter = 1;
-  dimvec(iter) = dim;
-  Etrain(iter) = nc_cost_c(Wi,Wo,alpha_i,alpha_o,train_inp,train_tar);
-  Error_train(iter) = nc_err_frac(Wi,Wo,train_inp,train_tar);
-
-    
-
-  % Construct grid
-  grid_inp = (-5:0.1:5)';
-  [Vj, grid_outy] = nc_forward(Wi, Wo, grid_inp);
-  grid_out = nc_softmax(grid_outy);
-
-  figure
+  figure(1)
   subplot(3,1,1)
   plot(grid_inp,  1/sqrt(2*pi)*exp(-0.5 * (grid_inp+2).^2), 'b-')
   hold on
@@ -104,7 +114,10 @@
   ylabel('True posterior probability')
   axis([ax(1:2) 0 1])
 
-
+    figure(2)
+    plot(nIt*25,error)
+    xlabel('Number of samples N1')
+    ylabel('Posterior probabilities error')
 
 
 

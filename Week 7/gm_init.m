@@ -42,6 +42,9 @@ if method==3,
    [a,index]=sort(rand(Ntrain,1));
    y=x(index(1:K),:);
    sig2=0.004*trace(zz)*rand(K,1)/D;    %variances
+   if isnan(sig2(1,1))
+       a=0
+   end
 end
 % 
 %

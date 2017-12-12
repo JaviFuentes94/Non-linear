@@ -5,7 +5,7 @@ clear
 %
 N1=50;          % Number of data points in d=2 data 
 N2=50;
-sig=1.5;sig2=sig^2;
+sig=10;sig2=sig^2;
 %
 centers=zeros(2,2);
 centers(1,1)=1;
@@ -19,14 +19,16 @@ train1=centers(:,1)*ones(1,N1) + width*randn(2,N1);
 train2=centers(:,2)*ones(1,N2) + width*randn(2,N2);
 train=[train1,train2];
 %
+% idx = randperm(size(train,2));
+% trainRandom=train(idx);
 %Alter order 
-trainRandom = []; 
-for i=1:N1
-
-    trainRandom = [trainRandom, train1(:,i), train2(:,i)]; %, train2(:,i+N1), train2(:,i+N1*2), train2(:,i+N1*3) ];             
-end
-%
-train=trainRandom; 
+% trainRandom = []; 
+% for i=1:N1
+% 
+%     trainRandom = [trainRandom, train1(:,i), train2(:,i)]; %, train2(:,i+N1), train2(:,i+N1*2), train2(:,i+N1*3) ];             
+% end
+% %
+% train=trainRandom; 
 subplot(2,2,1)
 plot(train1(1,:),train1(2,:),'r.',train2(1,:),train2(2,:),'b.')
 grid

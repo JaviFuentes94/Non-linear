@@ -7,9 +7,12 @@ Kmax=120;
 figure(1)
 X_tr=X_tr(:,[1,2,3,4,5,6,7]);
 X_te=X_te(:,[1,2,3,4,5,6,7]);
-%
+
+%Number of training and test samples
 Ntrain=size(X_tr,1);
 Ntest=size(X_te,1);
+
+%Normalizing the data
 X_te=X_te-repmat(mean(X_tr,1),Ntest,1);
 X_tr=X_tr-repmat(mean(X_tr,1),Ntrain,1);
 X_te=X_te./repmat(std(X_tr,[],1),Ntest,1);
@@ -25,3 +28,7 @@ Errtest=sum(class2~=y_te')/size(y_te,1)
 xlabel('Number of nearest neigbors in voting')
 ylabel('Error rate'),setfig
 
+Errtestvect(1)= Errtest;
+figure(2)
+hold off
+plot(0:6,Errtestvect)

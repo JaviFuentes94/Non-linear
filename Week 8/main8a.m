@@ -5,11 +5,11 @@
 % (c) Lars Kai Hansen 1999
 %
   clear 
-  K=5;            % Number of clusters  
+  K=25;            % Number of clusters  
   nits=30;         % Number of EM iterations
   method=1;        % Method of initialization 1,2,3
-  common_sigs=1;   % =1 if clusters have common variances , =0 if not
-  plot_motion=1;    % plot position of center while learning (time!)
+  common_sigs=0;   % =1 if clusters have common variances , =0 if not
+  plot_motion=0;    % plot position of center while learning (time!)
   close all
   randn('seed',5)
 %

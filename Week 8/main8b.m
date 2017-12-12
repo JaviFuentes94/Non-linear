@@ -7,13 +7,12 @@ clear
 close all
 
 %
-  K=3;           % Number of clusters  in each class
+  K=2;           % Number of clusters  in each class
   nits=30;       % Number of EM iterations
   method=2;      % Method of initialization 1,2,3
-  common_sigs=1;   % =1 if clusters have common variances , =0 if not
+  common_sigs=0;   % =1 if clusters have common variances , =0 if not
   close all
  seed=0;
-
   
 % First, get some pima data...
   load pima
@@ -32,6 +31,7 @@ close all
  C = max(y_tr);
  [Ntrain,D]=size(xtrain);
  [Ntest,D]=size(xtest);
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % estimate densities of the individual classes  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,7 +69,7 @@ for c=1:C,
       prob_z=sum(diag(prob_k)*prob_z_k);
       for k=1:K
          prob_k_z(k,:)=prob_k(k)*prob_z_k(k,:)./prob_z;
-      end,
+      end
       y=diag(1./sum(prob_k_z'))*prob_k_z*ztrain;
       dist=sum((y.*y)')'*ones(1,Ntrain) + z2train -2*y*ztrain';   
       sig2=(1/D)*diag(1./sum(prob_k_z'))*(sum((dist.*prob_k_z)')');

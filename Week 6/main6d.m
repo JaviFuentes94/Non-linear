@@ -123,6 +123,7 @@
       if Etest(iter) < min(Etest(1:(iter-1)))
 	Wi_best = Wi;
 	Wo_best = Wo;
+    iter
       end
       
       if doplot_prune

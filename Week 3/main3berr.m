@@ -18,7 +18,7 @@
 warning off
 
 %%%%%%%%%%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d = 15;             % Number of dimensions
+            % Number of dimensions
 S = load('sp.dat'); % Load sunspot data-set
 %S = S(1:50,1:2) %Cutting the number of years in the dataset
 year = S(:,1);  
@@ -29,18 +29,18 @@ d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 error_vector = [];
 d_vector = [];
-for iterator=1:280
+for iterator=1:100
     d = iterator;
     N = length(S)-d;
-    S(1:d)=randn(1,d);
+    %S(1:d)=randn(1,d);
     T = S(d+1:length(S));
     X = ones(N,1);
     for a = 1:N
     X(a,2:d+1) = S(a:a+d-1)';
     end
 
-    w = pinv(X)*T;
-    %w = inv(X'*X)*X'*T
+    %w = pinv(X)*T;
+    w = inv(X'*X)*X'*T
 
     Y = X*w;
     err = mean((Y-T).^2);

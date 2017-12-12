@@ -7,8 +7,7 @@ function probs = nc_softmax(phi)
 %      phi: Matrix of outputs of the network from NC_FORWARD
 %           rows are the individual output neurons.
 %  Output:  
-%    probs: Matrix of posterior probabilities. Each row is the
-%           are individual class prob for a specific example.
+%    probs: Matrix of posterior probabilities. 
 % 
 %  Neural classifier, DSP IMM DTU, JL97
 

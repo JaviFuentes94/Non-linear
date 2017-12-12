@@ -23,7 +23,7 @@ S = load('sp.dat'); % Load sunspot data-set
 year = S(:,1);  
 S = S(:,2);
 
-S(1:d)=randn(1,d);
+%S(1:d)=10*randn(1,d);
 d
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -6,7 +6,7 @@
 %
   clear 
   %K=100;            % Number of clusters  
-  KNumbers=5:25;
+  KNumbers=5:100;
   nits=30;         % Number of EM iterations
   method=1;        % Method of initialization 1,2,3
   common_sigs=0;   % =1 if clusters have common variances , =0 if not
@@ -166,3 +166,10 @@ hold on
 plot(KNumbers,mean(trainErrorVector));
 legend('Test error', 'Train Error')
 title('Normalized squared error')
+
+figure(6)
+plot(KNumbers,[diff(mean(testErrorVector)) 0]);
+hold on
+plot(KNumbers,[diff(mean(trainErrorVector)) 0]);
+legend('Test error difference', 'Train Error difference')
+title('Normalized squared error difference between Ks')

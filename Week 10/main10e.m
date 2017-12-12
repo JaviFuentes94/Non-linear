@@ -49,8 +49,8 @@ for pp=1:Nsig2,
 end
 %
 figure(1)
-dim1=1;
-dim2=2;
+dim1=2;
+dim2=7;
 indx_neg=find(y_te==1);
 indx_pos=find(y_te==2);
 plot(X_te(indx_neg,dim1),X_te(indx_neg,dim2),'b*',X_te(indx_pos,dim1),X_te(indx_pos,dim2),'r+')
@@ -78,6 +78,8 @@ hold on,
 alphas=zeros(N_tr,1);
 alphas(SVM_best.index)=SVM_best.alphaHat;
 plot(1:N_tr,alphas,'o')
+xlabel('Number of training sample')
+ylabel('a_{n}t_{n} values')
 hold off
 
 

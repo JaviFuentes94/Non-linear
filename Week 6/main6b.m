@@ -6,18 +6,18 @@
 % cvs: $Revision: 1.2 $
 
 
-
+  clear all
   clear trace_e
-  N = 21;
+  N = 11;
 
   trace_tar = ones(N,1);
   trace_tar_sq = [trace_tar trace_tar*0];
-  trace_outy = linspace(-10,10,N)';
+  trace_outy = linspace(-0,10,N)';
   trace_out = nc_softmax(trace_outy);
   
   for n = 1:size(trace_out,1)
 
-    % 
+    % Target is always 1. output goes from -10 until 10
     Targets = trace_tar(n,:);
     yj = trace_outy(n,1);
     
@@ -34,7 +34,7 @@
       % Determine column vector with outputs corresponding to 
       % the correct classes
       for i=1:exam
-	correct_out(i)=yj(i,Targets(i));
+        correct_out(i)=yj(i,Targets(i));
       end
       correct_out = correct_out'; 
       
@@ -57,6 +57,7 @@
   subplot(2,1,1)
   plot(trace_outy, trace_e_sq, 'r-x', ...
       trace_outy, trace_e_en, 'b--o')
+  legend('Square', 'Entropy' )
   xlabel('Neural network output before softmax (\phi_1)')
   ylabel('Cost function value')
 
@@ -64,6 +65,7 @@
   subplot(2,1,2)
   plot(trace_out(:,1), trace_e_sq, 'r-x', ...
       trace_out(:,1), trace_e_en, 'b--o')
+  legend('Square', 'Entropy' )
   xlabel('Output from first unit after softmax = probability (y_1)')
   ylabel('Cost function value')
   
