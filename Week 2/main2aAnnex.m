@@ -11,7 +11,7 @@ N=10000;           % number of points in density
 
 nSamples=100;
 Errors=zeros(nSamples,1);
-for idx=2:nSamples
+for idx=5:nSamples
 
   N=idx;
   disp('The true mean is');
@@ -127,7 +127,7 @@ for idx=2:nSamples
     
     error=(p-p2).^2;
     
-    Errors(idx)=sum(sum(error));
+    Errors(idx)=sum(sum(error))/resol^2;
   
 end
 

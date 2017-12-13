@@ -20,8 +20,8 @@ warning off
 %%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 mu=[5 20]';	   % true mean value
-SIGMA=[5  0 
-       0 2];   % true covariance matrix
+SIGMA=[5  -4.4 
+       -4.4 4];   % true covariance matrix
 N=10000;           % number of data points
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

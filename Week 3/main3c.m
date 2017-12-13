@@ -21,11 +21,13 @@
 warning off
 %%%%%%%%%%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   mu1=[5 4]';	    % true mean value
-  mu2=[4 -1]';	    % true mean value
+  mu2=[3 -1]';	    % true mean value
 
-  SIGMA=[2   0 
-    0 3  ];   % true covariance matrix
+  SIGMA=[2   -2
+    -2 3  ];   % true covariance matrix
 
+SIGMA1=[2   2
+    2 3  ];
   p1 = 0.3;          % P(C1)  probabilty of class 1
   p2 = 1-p1;
 
@@ -35,7 +37,7 @@ warning off
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 d1 = randmvn(mu1,SIGMA,N);  % A random sample
-d2 = randmvn(mu2,SIGMA,N);  % A random sample
+d2 = randmvn(mu2,SIGMA1,N);  % A random sample
 
 c1 = randbin(p1,1,N);        % Occurrence of class 1
 c2 = 1 - c1;                 % Occurrence of class 2

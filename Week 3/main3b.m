@@ -18,7 +18,7 @@
 warning off
 
 %%%%%%%%%%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d = 120;             % Number of dimensions
+d = 10;             % Number of dimensions
 S = load('sp.dat'); % Load sunspot data-set
 year = S(:,1);  
 S = S(:,2);

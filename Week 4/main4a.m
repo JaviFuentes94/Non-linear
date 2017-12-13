@@ -18,7 +18,7 @@ close all
 randn('state',0)   %fix random generator seed
 
 %%%%%%%%%%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-w_t = [1 2 5]';	 % True weights
+w_t = [1 2 0.5]';	 % True weights
 noiselevel = 0.75;   % Standard deviation of Gaussian noise on data
 d = size(w_t,1);     % Number of dimensions
 Nmin=5;              % Minimal training set size
