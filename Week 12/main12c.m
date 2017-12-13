@@ -81,10 +81,11 @@ figure
 subplot(2,1,1), 
 plot(1:(2*Ntrain),ttrain,'r',1:(2*Ntrain),ttrain_pred,'b')
 title('TRAIN')
+legend('Train targets', 'Train predictions')
 subplot(2,1,2)
 plot(1:(2*Ntest),ttest,'r',1:(2*Ntest),ttest_pred,'b')
-title(['TEST ERROR = ',num2str(test_error,2),'BASELINE ERROR = ',num2str(baseline,2)])
-
+title(['TEST ERROR = ',num2str(test_error,2),' BASELINE ERROR = ',num2str(baseline,2)])
+legend('Train targets', 'Train predictions')
 
 % run classifier realtime for second
 num_secs=30;
@@ -98,11 +99,12 @@ while etime(t1,t0)<=num_secs,
     sig=sig/std(sig);
     fftMag = 20*log10( abs(fft(sig,nfft))+1 );
     x=(fftMag(1:round(0.5*nfft+1)))'*U(:,1:K);
+    result=[x,1]*w;
     class=sign([x,1]*w);
-    if class >0,
-        disp('IMPACT')
+    if class >0
+        disp(fprintf('IMPACT %f', result))
     else
-        disp('CLAP')
+        disp(fprintf('CLAP %f', result))
     end
     t1=clock;
 end

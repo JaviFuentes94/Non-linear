@@ -53,13 +53,14 @@ title('ESTIMATED STATIONARY DIST')
 % increasing length to plot "learning curve"
 % show convergence of Markov estimation
 N_sizes=100; 
+nn=1;
+
 for n=1:N_sizes,
     Nmax=n*1000;  % sequence length
     narray(n)=Nmax;
-    nn=1;
     for j=1:Nmax,
-      nn=getint(ac(nn,:));
-      seq(j)=nn;
+        nn=getint(ac(nn,:));
+        seq(j)=nn;
     end
     aest=markov_map(seq,K,eps);
     error(n)=mean(mean(((aest-anorm).^2)./(anorm.^2)));

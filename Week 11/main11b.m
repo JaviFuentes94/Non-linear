@@ -17,6 +17,7 @@ a2=rand(K)+10*eye(K);
 a2=a2./(sum(a2,2)*ones(1,K));
 %
 % generate non-stationary Markov sequence
+%Generate sequence a1 - a2 - a1
 x=zeros(1,N1+N2+N1);
 x(1)=1;
 for n=1:N1

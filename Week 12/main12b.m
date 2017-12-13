@@ -5,11 +5,15 @@ year = S(:,1);  clear S
 [tr_i,tr_t,te_i,te_t] = getsun(d);
 tr_i=[tr_i,ones(size(tr_i,1),1)];
 te_i=[te_i,ones(size(te_i,1),1)];
+%Dataset variance
 global_var=std([te_t;tr_t])^2;
+%Number of samples in each dataset
 Ntrain=length(tr_t);
 Ntest=length(te_t);
+%Solve the weights and sigma as a regular linear model
 w_glob=pinv(tr_i'*tr_i)*(tr_i'*tr_t);
 Sigma_glob=pinv(((1/std(tr_t))^2)*(tr_i'*tr_i));
+%Calculate the predictions using the stationary model
 ytrain_glob=w_glob'*tr_i';
 ytest_glob=w_glob'*te_i';
 test_error_glob=mean((te_t'-ytest_glob).^2)/global_var;

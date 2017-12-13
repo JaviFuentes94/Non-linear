@@ -4,7 +4,7 @@
 % non-stationary linear model 
 % fixed prior and noise level
 d=7;
-alf0=100.0;  % large precision => small changes in time 
+alf0=100000%100.0;  % large precision => small changes in time 
 beta0=1.0;   % precision of additive noise
 Ntrain=1000;
 Ntest=1000;
@@ -65,6 +65,7 @@ for na=1:Nalfs,
         for n=1:Ntrain,
             ttrain_pred(n)=mu'*xtrain(:,n);
             [ mu,Sigma] = posterior_update_linear(xtrain(:,n),ttrain(n),mu,Sigma,alf,beta);
+            %Eq 7
             ttrain_est(n)=mu'*xtrain(:,n);
         end
         %
@@ -107,7 +108,7 @@ subplot(2,2,2)
 imagesc(alf_array,beta_array,train_error'), colorbar
 hold on
 plot(alf_array(z1),beta_array(z2),'w*')
-title(['RELATIVE TRAIN ERROR=',num2str(min(min(train_error)),2)])
+title(['MIN RELATIVE TRAIN ERROR=',num2str(min(min(train_error)),2)])
 xlabel('\alpha')
 ylabel('\beta')
 % 
