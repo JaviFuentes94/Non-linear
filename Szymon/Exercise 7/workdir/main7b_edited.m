@@ -13,12 +13,12 @@
   nits=20000;       % Number of EM iterations
   method=1;      % Method of initialization 1,2,3
   close all
-  randn('seed',0)
+  randn('seed',1)
   train_error = [];
   test_error = [];
 %
 %
-for main_loop=1:10
+for main_loop=1:30
     clear sig_arr x2train y dist k
     clear sig2 t xtest Etest_arr Etrain_arr
     clear prob_k prob_k_x prob_x prob_x_k xtrain
@@ -50,6 +50,8 @@ for main_loop=1:10
 
        dist=sum((y.*y)')'*ones(1,Ntrain) + x2train -2*y*xtrain';   
        sig2=(1/D)*diag(1./sum(prob_k_x'))*(sum((dist.*prob_k_x)')');
+       
+       sig2(sig2<1e-9) = 1e-9;
        %if(isnan(sig2))
        %    sum(prob_k_x')
        %end
@@ -92,5 +94,11 @@ end
 
 figure
 plot(test_error)
+title('Test error')
+ylabel('Test error')
+xlabel('Value of K - number of clusters')
 figure
 plot(train_error)
+title('Train error')
+ylabel('Train error')
+xlabel('Value of K - number of clusters')

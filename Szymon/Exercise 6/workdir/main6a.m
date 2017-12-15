@@ -15,8 +15,8 @@
   seed=sum(100*clock);
   range=0.3;
   
-  alpha_i = 0.5;            % Input weight decay
-  alpha_o = 1e-1;           % Output weight decay
+  alpha_i = 0;            % Input weight decay
+  alpha_o = 50;           % Output weight decay
   
   I_gr = 5;                 % Initial max. gradient iterations
   I_psgn = 30;              % Initial max. pseudo Gauss-Newt iterations

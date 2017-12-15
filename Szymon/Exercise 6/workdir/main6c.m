@@ -43,8 +43,8 @@
   
   
   % First, get some data...
-  N1 = 100;
-  N2 = 12;
+  N1 = 500;
+  N2 = 60;
   X_tr = [ randn(N1, 1) - 2 ; randn(N2, 1) + 2];
   y_tr = [ ones(N1, 1) ; 1+ones(N2, 1) ];
   
@@ -95,7 +95,7 @@
   ylabel('Network posterior probability')
   axis([ax(1:2) 0 1])
 
-  true_out1=1./(1 + (N2/N1)*exp(-0.5*(grid_inp-2).^2 + 0.5*(grid_inp+2).^2));
+  true_out1=1./ (1 + (N2/N1)*exp(-0.5*(grid_inp-2).^2 + 0.5*(grid_inp+2).^2));
   true_out2=ones(size(true_out1))-true_out1;
   subplot(3,1,3);
   plot(grid_inp, true_out1, 'b-x', ...
