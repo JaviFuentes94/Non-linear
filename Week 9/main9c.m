@@ -6,7 +6,7 @@ d=11;  % input dimension of sunspot prediction
 [x,tr_t,xtest,te_t] = getsun(d);
 var=std([tr_t',te_t'])^2;
 %
-Kmax=150;
+Kmax=210;
 alpha=0.005;
 Ntest=length(te_t);
 for K=1:Kmax

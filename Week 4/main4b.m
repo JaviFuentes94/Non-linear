@@ -14,7 +14,7 @@ close all
 warning off
 
 %%%%%%%%%%%%%%%%%%%%%%% Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d = 10;             % Number of dimensions
+d = 9;             % Number of dimensions
 S = load('sp.dat'); % Load sunspot data-set
 year = S(:,1);  
 S = S(:,2);
@@ -22,7 +22,7 @@ alf=0;
 
 var = std(S).^2;   % the total signal variance for normalization
 %  of variances
-nWeights=1:100;
+nWeights=1:10;
 errorTrainVector=[];
 errorTestVector=[];
 

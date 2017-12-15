@@ -7,7 +7,8 @@ for d=D
 [x,tr_t,xtest,te_t] = getsun(d);
 var=std([tr_t',te_t'])^2;
 %
-Kmax=100;
+Ntrain=length(tr_t);
+Kmax=Ntrain;
 alpha=0.005;
 Ntest=length(te_t);
 for K=1:Kmax

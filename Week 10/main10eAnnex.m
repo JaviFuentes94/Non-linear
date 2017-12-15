@@ -17,8 +17,8 @@ mu_tr=mean(X_tr,1);
 std_tr=std(X_tr,[],1);
 X_te=(X_te-ones(size(X_te,1),1)*mu_tr)./repmat(std_tr,size(X_te,1),1);
 X_tr=(X_tr-ones(size(X_tr,1),1)*mu_tr)./repmat(std_tr,size(X_tr,1),1);
-X_te=X_te(:,[3]);
-X_tr=X_tr(:,[3]);
+X_te=X_te(:,[2,6,7]);
+X_tr=X_tr(:,[2,6,7]);
 %
 sig2_min=0.001;
 sig2_max=20;

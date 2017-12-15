@@ -5,9 +5,9 @@ train_N=size(train_dist,1);
 test_N=size(test_dist,1);
 %Using the notation from the exercise:
 %C_train
-A=exp(-train_dist/(2*sig2));%+(1/beta)*eye(train_N);
+A=exp(-train_dist/(2*sig2))+(1/beta)*eye(train_N);
 %C_test
-B=exp(-test_dist/(2*sig2));%+(1/beta)*eye(test_N);
+B=exp(-test_dist/(2*sig2))+(1/beta)*eye(test_N);
 %C_test,train
 C=exp(-test_train_dist/(2*sig2));
 %C_test,train*C_train^-1

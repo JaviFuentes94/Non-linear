@@ -32,11 +32,15 @@ for n=1:(N1-1)
 end
 %
 % parameters
-Nalf=2;   % prior: alf = alpha-1 in Dirichlet prior
+Nalfmax=2;
+Nalfmin=0.1;
+Nalf=10;
+% prior: alf = alpha-1 in Dirichlet prior
 skip=1;    % skip between window starts
 Nwin=1;    % number of window lengths explored
 win_max=1288;  % max window size
 win_min=1288;    % min window size
+alpha_array=linspace(Nalfmin,Nalfmax,Nalf);
 win_array=round(linspace(win_min,win_max,Nwin));
 win_pred=1000;  % window for est of test likelihood
 %
@@ -44,10 +48,11 @@ loglik_train=zeros(Nwin,ceil((N1+N2+N1)/win_min));
 loglik_test=zeros(Nwin,ceil((N1+N2+N1)/win_min));
 loglik1=zeros(Nwin,ceil((N1+N2+N1)/win_min));
 loglik2=zeros(Nwin,ceil((N1+N2+N1)/win_min));
-for alf=eps:0.25:Nalf
-    disp(['Window size ',int2str(w),', of ',int2str(Nwin)])
+for nalf=1:Nalf
+    %disp(['Window size ',int2str(w),', of ',int2str(Nwin)])
     % random init ae's
     winsize=win_array(1);
+    alf=alpha_array(nalf)
     Nwindows=floor((N1+N2+N1-win_pred-winsize)/skip)-1;
     Nwindows_array(1)=Nwindows;
     startwin=1;
@@ -61,13 +66,13 @@ for alf=eps:0.25:Nalf
         else
             dist_true(w,t)=sum(sum(abs(ae-a2)))/sum(sum(a2));
         end
-        loglik_train(w,t)=markov_loglik(xwin,ae,K)/win_array(w);
-        loglik1(w,t)=markov_loglik(xwin,a1,K)/win_array(w);
-        loglik2(w,t)=markov_loglik(xwin,a2,K)/win_array(w);
+        loglik_train(w,t)=markov_loglik(xwin,ae,K)/win_array(1);
+        loglik1(w,t)=markov_loglik(xwin,a1,K)/win_array(1);
+        loglik2(w,t)=markov_loglik(xwin,a2,K)/win_array(1);
         timers(w,t)=startwin;
         startwin=startwin+skip;
     end
-    mean_loglik_test(w)=mean(loglik_test(w,1:Nwindows));
+    mean_loglik_test(nalf)=mean(loglik_test(w,1:Nwindows));
 end
 
 % plot training likelihood and true models' likelihoods
@@ -115,18 +120,19 @@ end
 
 % plot test set measure 
 figure(4)
-subplot(2,1,1)
-bar(win_array,mean_model_mse)
-%bar(log10(win_array),mean_model_mse)
-xlim=[0 win_max];
-xlabel('WINDOW SIZE')
-%xlabel('LOG10 WINDOW SIZE')
-ylabel('MEAN L1-DIST |EST - TRUE|')
-subplot(2,1,2),
+% subplot(2,1,1)
+% bar(alpha_array,mean_model_mse)
+% %bar(log10(win_array),mean_model_mse)
+% xlim=[0 Nalfmax];
+% xlabel('ALPHA SIZE')
+% %xlabel('LOG10 WINDOW SIZE')
+% ylabel('MEAN L1-DIST |EST - TRUE|')
+% subplot(2,1,2),
 %bar(log10(win_array),mean_loglik_test)
-bar(win_array,mean_loglik_test)
-xlim=[0 win_max];
+plot(alpha_array,mean_loglik_test)
+% xlim=[0 Nalfmax];
 %xlabel('LOG10 WINDOW SIZE')
-xlabel('WINDOW SIZE')
+xlabel('ALPHA SIZE')
 ylabel('MEAN TEST LOGLIK')
+
 

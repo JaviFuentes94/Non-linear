@@ -6,7 +6,7 @@
 %
   clear 
   %K=100;            % Number of clusters  
-  KNumbers=5:100;
+  KNumbers=5:25;
   nits=30;         % Number of EM iterations
   method=1;        % Method of initialization 1,2,3
   common_sigs=0;   % =1 if clusters have common variances , =0 if not
@@ -15,7 +15,7 @@
   sig2_thres=1e-6;
   seed=4;
   randn('seed',seed)
-  nIterations=100;
+  nIterations=3;
 %
 %
 % getdata from sunspot file
